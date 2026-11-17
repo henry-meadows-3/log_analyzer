@@ -52,3 +52,41 @@ def calculate_failure_rate(failed, total) -> float:
         return 0.0
     return (failed / total) * 100
 
+def write_report(filename, total, failed, locked, failed_rate):
+    """
+    @brief Writes a formatted security report summary to an output file
+    :param filename: Path to the output file
+    :param total: Total number of login attempts
+    :param failed: Total number of failed login attempts
+    :param locked: Total number of locked login attempts
+    :param failed_rate: Calculated percentage of failed login attempts
+    """
+    with(open(filename, "w", encoding="utf-8")) as out_file:
+        out_file.write("=======================================\n")
+        out_file.write("     SERVER SECURITY AUDIT REPORT\n")
+        out_file.write(" =======================================\n")
+        out_file.write(f"Total Login Attempts : {total}\n")
+        out_file.write(f"Failed Attempts      : {failed}\n")
+        out_file.write(f"Accounts Locked      : {locked}\n")
+        out_file.write(f"Failure Rate         : {failed_rate}%\n")
+        out_file.write(" =======================================\n")
+        
+    def main(): 
+        """
+        @brief Coordinates log analysis and report generation
+        """
+        
+        input_file = "log_analyzer.txt"
+        output_file = "security_report.txt"
+        
+        results = analyze_logs(input_file)
+        if results is None:
+            return
+        
+        total_attempts, failed_count, locked_count = results
+        fail_rate = calculate_failure_rate(failed_count, total_attempts)
+        write_report(output_file, total_attempts, failed_count, locked_count, fail_rate)
+        print(f"\nAnalysis complete, Report written to {output_file}.")
+        
+    if __name__ == "__main__":
+        main()
