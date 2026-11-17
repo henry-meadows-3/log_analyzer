@@ -70,23 +70,23 @@ def write_report(filename, total, failed, locked, failed_rate):
         out_file.write(f"Accounts Locked      : {locked}\n")
         out_file.write(f"Failure Rate         : {failed_rate}%\n")
         out_file.write(" =======================================\n")
-        
-    def main(): 
-        """
-        @brief Coordinates log analysis and report generation
-        """
-        
-        input_file = "log_analyzer.txt"
-        output_file = "security_report.txt"
-        
-        results = analyze_logs(input_file)
-        if results is None:
-            return
-        
-        total_attempts, failed_count, locked_count = results
-        fail_rate = calculate_failure_rate(failed_count, total_attempts)
-        write_report(output_file, total_attempts, failed_count, locked_count, fail_rate)
-        print(f"\nAnalysis complete, Report written to {output_file}.")
-        
-    if __name__ == "__main__":
-        main()
+
+def main():
+    """
+    @brief Coordinates log analysis and report generation
+    """
+
+    input_file = "log_analyzer.txt"
+    output_file = "security_report.txt"
+
+    results = analyze_logs(input_file)
+    if results is None:
+        return
+
+    total_attempts, failed_count, locked_count = results
+    fail_rate = calculate_failure_rate(failed_count, total_attempts)
+    write_report(output_file, total_attempts, failed_count, locked_count, fail_rate)
+    print(f"\nAnalysis complete, Report written to {output_file}.")
+
+if __name__ == "__main__":
+    main()
