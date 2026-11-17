@@ -41,3 +41,14 @@ def analyze_logs(filename) -> tuple | None:
     return total_attempts, failed_count, locked_count
 
 
+def calculate_failure_rate(failed, total) -> float:
+    """
+    @brief Calculates the percentage of failed login attempts
+    :param failed: Number of failed login attempts
+    :param total: Total number of login attempts
+    :return: failure percentage as float
+    """
+    if total == 0:
+        return 0.0
+    return (failed / total) * 100
+
